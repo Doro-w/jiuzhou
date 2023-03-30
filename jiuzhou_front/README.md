@@ -1,4 +1,4 @@
-# jiuzhou_client
+# jiuzhou_front
 
 ## Project setup
 ```
