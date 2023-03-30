@@ -1,0 +1,24 @@
+#配置数据源
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/jiuzhou
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#配置mybatis
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #配置映射文件位置，在类路径下，mapper目录下的任意层级文件夹下的以.xml结尾的文件
+  mapper-locations: classpath:com/jiuzhou/server/mapper/xml/*.xml
+
+server:
+  port: 8181
+
+#pagehelper
+#配置方言，即配置使用哪一个数据库
+pagehelper:
+  helper-dialect: mysql
+  #分页的合理化配置，即如果请求页码不合理时，自动合理化，比如：请求-9页，自动合理化成第一页
+  reasonable: true

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="com.github.pagehelper:pagehelper:5.0.1" type="repository">
+    <properties maven-id="com.github.pagehelper:pagehelper:5.0.1" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/pagehelper/pagehelper/5.0.1/pagehelper-5.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/jsqlparser/jsqlparser/0.9.5/jsqlparser-0.9.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
