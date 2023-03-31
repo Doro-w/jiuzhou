@@ -27,7 +27,7 @@ public class ProvinceSalesGenerator {
 
         pCount = provinceMapper.countProvince();
         if(pCount > 0){
-            for(int i = 1; i < pCount; i++){
+            for(int i = 1; i <= pCount; i++){
                 int total = citySalesMapper.totalSalesOfProvince(i);
                 provinceSalesMapper.insertProvinceSales(i, total);
             }
