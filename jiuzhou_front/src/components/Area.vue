@@ -1,5 +1,6 @@
 <template>
   <div class="com-container" @dblclick="chinaMap" style="width: 100vh;height: 100vh">
+
     <div class="com-chart" ref="mapRef"></div>
   </div>
 </template>
@@ -422,7 +423,7 @@ export default {
       // 屏幕适配
       this.screenAdapter()
       // 渲染数据
-      this.updateChart()
+
     },
   },
   created() {
@@ -439,10 +440,12 @@ export default {
     window.removeEventListener('resize', this.screenAdapter)
   },
   methods: {
-    getSaleNumberByProvince(name) {
-      console.log(name);
-      return name;
-    },
+    getSaleData() {
+      this.$http({
+        method:'get',
+        url:
+      })
+    }
     // 转换数据
     convertData(data) {
       var res = [];
@@ -457,6 +460,7 @@ export default {
       }
       return res;
     },
+
     // 初始化图表的方法
     async initChart() {
       this.chartInstance = this.$echarts.init(this.$refs.mapRef, this.theme)
@@ -471,47 +475,93 @@ export default {
         console.log('china:',res);
       }
       // 注册地图数据
-      this.$echarts.registerMap('china', this.chinaMapData)
+      this.$echarts.registerMap('China', this.chinaMapData)
+
 
       // 初始化配置项
       const initOption = {
         title: {
-          text: '销售分布',
+          text: '中国各省销售分布',
           left: 20,
           top: 20
         },
-        geo: {
-          type: 'map',
-          map: 'china',
-          top: '5%',
-          bottom: '5%',
-          //允许拖动及缩放
-          roam: true,
-          // zoom: 1.1, //默认缩放比例
-          itemStyle: {
-            // 地图的填充色
-            areaColor: 'rgb(62,170,253)',
-            // 省份的边框色
-            borderColor: '#ffffff',
-          },
-          label: {
-            show: true,
-            // 省份名称颜色
-            color: '',
-            formatter: `{a}`
-          }
-        },
+        // geo: {
+        //   type: 'map',
+        //   map: 'china',
+        //   top: '5%',
+        //   bottom: '5%',
+        //   //允许拖动及缩放
+        //   roam: true,
+        //   // zoom: 1.1, //默认缩放比例
+        //   itemStyle: {
+        //     // 地图的填充色
+        //     areaColor: 'rgb(62,170,253)',
+        //     // 省份的边框色
+        //     borderColor: '#ffffff',
+        //   },
+        //   label: {
+        //     show: true,
+        //     // 省份名称颜色
+        //     color: '',
+        //     formatter: `{a}`
+        //   },
+        //   tooltip: {
+        //     trigger:'item',
+        //     showDelay: 0,
+        //     confine: true,
+        //     formatter: '{b}<br/>{c}'
+        //   },
+        // },
+
         tooltip: {
           trigger:'item',
           showDelay: 0,
           confine: true,
           formatter: '{b}<br/>{c}'
         },
+        visualMap: {
+          left: 'right',
+          min: 500000,
+          max: 38000000,
+          inRange: {
+            color: [
+              '#313695',
+              '#4575b4',
+              '#74add1',
+              '#abd9e9',
+              '#e0f3f8',
+              '#ffffbf',
+              '#fee090',
+              '#fdae61',
+              '#f46d43',
+              '#d73027',
+              '#a50026'
+            ]
+          },
+          text: ['High', 'Low'],
+          calculable: true
+        },
+        toolbox: {
+          show: true,
+          //orient: 'vertical',
+          left: 'left',
+          top: 'top',
+          feature: {
+            dataView: { readOnly: false },
+            restore: {},
+            saveAsImage: {}
+          }
+        },
         series: [
           {
+            name:'China Sale Map',
             type: 'map',
-            label: {
-              show: true
+            roam:true,
+            map:'China',
+            emphasis: {
+              label: {
+                show: true
+              },
             },
             data: [
               {
@@ -533,7 +583,6 @@ export default {
       this.chartInstance.on('click', async e => {
         // 通过工具函数拿到点击的地图对应的中文拼音(key),和拼接出需要的文件路径(path)
         const ProvinceInfo = getProvinceMapInfo(e.name)
-
         // 先判断是否已经存在需要请求的数据
         if (!this.cityMapData[ProvinceInfo.key]) {
           // 不存在： 发送请求,获取点击的地图的矢量数据
@@ -551,17 +600,32 @@ export default {
 
         // 设置最新的配置项
         const changeOption = {
-          geo: {
-            map: ProvinceInfo.key,
-          },
+          series: [
+            {
+              name:ProvinceInfo.key + ' Sale Map',
+              map:ProvinceInfo.key,
+              data: [
+                {
+                  name: '北京',
+                  value: 200
+                },
+                {
+                  name: '河南',
+                  value: 300
+                }
+              ],
+            }
+          ]
         }
         // 赋值给 echarts实例
         this.chartInstance.setOption(changeOption)
       })
+
       // this.chartInstance.on('mouseover',async e =>{
       //   this.getSaleNumberByProvince(e.name);
       // })
     },
+
     // 发送请求，获取数据
     async getData() {
       // http://101.34.160.195:8888/api/map
@@ -572,81 +636,81 @@ export default {
       this.allData = res
       console.log('map:', res)
       // console.log("res "+ JSON.stringify(res))
-
-
       this.updateChart()
     },
+
     // 更新图表配置项
-    updateChart() {
-      // 图例的数据
-      const legendArr = this.allData.map(item => {
-        return item.name
-      })
-      // 散点图的数据
-      const seriesArr = this.allData.map(item => {
-        // return 一个类别下的所有散点数据
-        return {
-          type: 'effectScatter',
-          // 图例的name需要与series的name相同
-          name: item.name,
-          data: item.children,
-          // 让散点图使用地图坐标系统
-          coordinateSystem: 'geo',
-          // 涟漪动画效果配置
-          rippleEffect: {
-            // 涟漪效果直径
-            scale: 7,
-            // 空心的涟漪动画效果
-            brushType: 'stroke',
-            period: 4,
-            number: 3,
-          },
-          itemStyle:{
-            normal:{
-              color:"#ffcdb2"
-            }
-          }
-        }
-      })
-      seriesArr.push({
-        type: 'scatter',
-        // 图例的name需要与series的name相同
-        name: 'test1',
-        // data: [{
-        //   name:"大庆",
-        //   value:[125.03,46.58,9]
-        // },
-        //   {
-        //     name:"鄂尔多斯",
-        //     value:[109.781327,39.608266,32]
-        //   }],
-        data:this.convertData(this.cityValue),
-        // 让散点图使用地图坐标系统
-        coordinateSystem: 'geo',
-        itemStyle:{
-          normal:{
-            color:"rgb(249,255,249)"
-          }
-        },
-        symbolSize:function (val) {
-          return val[2] / 18;
-        }
+    // updateChart() {
+    //   // 图例的数据
+    //   const legendArr = this.allData.map(item => {
+    //     return item.name
+    //   })
+    //   // 散点图的数据
+    //   const seriesArr = this.allData.map(item => {
+    //     // return 一个类别下的所有散点数据
+    //     return {
+    //       type: 'effectScatter',
+    //       // 图例的name需要与series的name相同
+    //       name: item.name,
+    //       data: item.children,
+    //       // 让散点图使用地图坐标系统
+    //       coordinateSystem: 'geo',
+    //       // 涟漪动画效果配置
+    //       rippleEffect: {
+    //         // 涟漪效果直径
+    //         scale: 7,
+    //         // 空心的涟漪动画效果
+    //         brushType: 'stroke',
+    //         period: 4,
+    //         number: 3,
+    //       },
+    //       itemStyle:{
+    //         normal:{
+    //           color:"#ffcdb2"
+    //         }
+    //       }
+    //     }
+    //   })
+    //   seriesArr.push({
+    //     type: 'scatter',
+    //     // 图例的name需要与series的name相同
+    //     name: 'test1',
+    //     // data: [{
+    //     //   name:"大庆",
+    //     //   value:[125.03,46.58,9]
+    //     // },
+    //     //   {
+    //     //     name:"鄂尔多斯",
+    //     //     value:[109.781327,39.608266,32]
+    //     //   }],
+    //     data:this.convertData(this.cityValue),
+    //     // 让散点图使用地图坐标系统
+    //     coordinateSystem: 'geo',
+    //     itemStyle:{
+    //       normal:{
+    //         color:"rgb(249,255,249)"
+    //       }
+    //     },
+    //     symbolSize:function (val) {
+    //       return val[2] / 18;
+    //     }
+    //
+    //   })
+    //
+    //   // 数据配置项
+    //   const dataOption = {
+    //     legend: {
+    //       left: '2%',
+    //       bottom: '5%',
+    //       // 图例的方向
+    //       orient: 'verticle',
+    //       data: legendArr.reverse(),
+    //     },
+    //     series: seriesArr,
+    //   }
+    //   this.chartInstance.setOption(dataOption)
+    // },
 
-      })
-
-      // 数据配置项
-      const dataOption = {
-        legend: {
-          left: '2%',
-          bottom: '5%',
-          // 图例的方向
-          orient: 'verticle',
-          data: legendArr.reverse(),
-        },
-        series: seriesArr,
-      }
-      this.chartInstance.setOption(dataOption)
-    },
     // 不同分辨率的响应式
     screenAdapter() {
       // 当前比较合适的字体大小
@@ -675,17 +739,29 @@ export default {
       this.chartInstance.setOption(adapterOption)
       this.chartInstance.resize()
     },
+
     // 回到中国地图
     chinaMap() {
       const chinaMapOption = {
-        geo: {
-          map: 'china',
-        },
+        series: [
+          {
+            name:'China Sale Map',
+            map:'China',
+            data: [
+              {
+                name: '北京',
+                value: 200
+              },
+              {
+                name: '河南',
+                value: 300
+              }
+            ],
+          }
+        ]
       }
       this.chartInstance.setOption(chinaMapOption)
     },
-
-
   }
 }
 </script>
