@@ -5,7 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
 import store from './store'
 import axios from 'axios'
-import echarts from 'echarts'
+import * as echarts from 'echarts'
 
 // 引入全局样式文件
 import './assets/css/global.less'

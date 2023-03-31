@@ -407,9 +407,8 @@ export default {
         合肥: [117.27, 31.86],
         武汉: [114.31, 30.52],
         大庆: [125.03, 46.58]
+      },
       }
-    }
-
   },
   computed: {
     ...mapState(['theme']),
@@ -427,7 +426,7 @@ export default {
     },
   },
   created() {
-    this.getData();
+    //this.getData();
   },
   mounted() {
     this.initChart();
@@ -440,6 +439,10 @@ export default {
     window.removeEventListener('resize', this.screenAdapter)
   },
   methods: {
+    getSaleNumberByProvince(name) {
+      console.log(name);
+      return name;
+    },
     // 转换数据
     convertData(data) {
       var res = [];
@@ -473,9 +476,9 @@ export default {
       // 初始化配置项
       const initOption = {
         title: {
-          text: '▎销售分布',
+          text: '销售分布',
           left: 20,
-          top: 20,
+          top: 20
         },
         geo: {
           type: 'map',
@@ -495,11 +498,36 @@ export default {
             show: true,
             // 省份名称颜色
             color: '',
-            formatter: `{a}`,
-          },
+            formatter: `{a}`
+          }
         },
+        tooltip: {
+          trigger:'item',
+          showDelay: 0,
+          confine: true,
+          formatter: '{b}<br/>{c}'
+        },
+        series: [
+          {
+            type: 'map',
+            label: {
+              show: true
+            },
+            data: [
+              {
+                name: '北京',
+                value: 200
+              },
+              {
+                name: '河南',
+                value: 300
+              }
+            ],
+          }
+        ]
       }
-      this.chartInstance.setOption(initOption)
+
+      this.chartInstance.setOption(initOption);
 
       // 进入省份事件函数
       this.chartInstance.on('click', async e => {
@@ -530,6 +558,9 @@ export default {
         // 赋值给 echarts实例
         this.chartInstance.setOption(changeOption)
       })
+      // this.chartInstance.on('mouseover',async e =>{
+      //   this.getSaleNumberByProvince(e.name);
+      // })
     },
     // 发送请求，获取数据
     async getData() {
@@ -653,6 +684,8 @@ export default {
       }
       this.chartInstance.setOption(chinaMapOption)
     },
+
+
   }
 }
 </script>
