@@ -22,4 +22,7 @@ public interface ProvinceMapper extends BaseMapper<Province> {
 
     @Select("select count(*) from province")
     Integer countProvince();
+
+    @Select("select name from province where id = ${id}")
+    String queryNameByProvinceId(Integer id);
 }
