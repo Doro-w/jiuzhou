@@ -1,59 +1,55 @@
 <template>
-  <el-row>
-    <el-col :span="12">
-      <div class="com-container">
-        <el-table
-            :data="devicesData"
-            stripe
-            style="border-radius: 6px;background-color: rgba(255,255,255,0)"
-            :header-cell-style="{background:'rgba(1,49,176,0.88)',color:'rgb(255,255,255)'}"
-            :cell-style="{background:'rgb(15,84,216)',color:'rgb(255,255,255)'}">
-          <el-table-column
-            prop="name"
-            label="设备名称"
-            align="center">
-          </el-table-column>
-          <el-table-column
-              prop="type"
-              label="设备型号"
-              align="center"
-              :formatter=FilterType>
-          </el-table-column>
-          <el-table-column
-              prop="area"
-              label="安装地区"
-              align="center">
-          </el-table-column>
-          <el-table-column
-              prop="state"
-              label="工作状态"
-              align="center"
-              :formatter=FilterState>
-          </el-table-column>
-          <el-table-column
-              prop="alarm"
-              label="报警信息"
-              align="center"
-              :formatter=FilterAlarm>
-          </el-table-column>
-        </el-table>
+  <div class="com-container">
+    <el-table
+        :data="devicesData"
+        stripe
+        style="border-radius: 6px;background-color: rgba(255,255,255,0)"
+        :header-cell-style="{background:'rgba(1,49,176,0.88)',color:'rgb(255,255,255)'}"
+        :cell-style="{background:'rgb(15,84,216)',color:'rgb(255,255,255)'}">
+      <el-table-column
+        prop="name"
+        label="设备名称"
+        align="center">
+      </el-table-column>
+      <el-table-column
+          prop="type"
+          label="设备型号"
+          align="center"
+          :formatter=FilterType>
+      </el-table-column>
+      <el-table-column
+          prop="area"
+          label="安装地区"
+          align="center">
+      </el-table-column>
+      <el-table-column
+          prop="state"
+          label="工作状态"
+          align="center"
+          :formatter=FilterState>
+      </el-table-column>
+      <el-table-column
+          prop="alarm"
+          label="报警信息"
+          align="center"
+          :formatter=FilterAlarm>
+      </el-table-column>
+    </el-table>
 
-        <el-row :gutter="15">
-          <el-col :span="12">
-            <div class="grid-content bg-purple">
-              设备总数：20台
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content bg-purple">
-              工作中设备：18台
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-    </el-col>
-    <el-col :span="12"/>
-  </el-row>
+    <el-row :gutter="15">
+      <el-col :span="12">
+        <div class="grid-content bg-purple">
+          设备总数：20台
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-purple">
+          工作中设备：18台
+        </div>
+      </el-col>
+    </el-row>
+  </div>
+
 </template>
 
 <script>
