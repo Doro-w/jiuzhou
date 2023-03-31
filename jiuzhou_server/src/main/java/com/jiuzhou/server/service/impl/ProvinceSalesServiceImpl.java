@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,5 +33,18 @@ public class ProvinceSalesServiceImpl extends ServiceImpl<ProvinceSalesMapper, P
         // 根据省份名获取省份id
         Integer provinceId = provinceMapper.queryIdByProvinceName(pname);
         return provinceSalesMapper.querySalesByProvince(provinceId);
+    }
+
+    @Override
+    public  List<HashMap<String, Object>> queryAllSalesByProvince(){
+        List<HashMap<String, Object>> result = new ArrayList<>();
+        int count = provinceMapper.countProvince();
+        for(int i = 1; i < count; ++i){
+            HashMap<String, Object> temp = new HashMap<>();
+            temp.put("name", provinceMapper.queryNameByProvinceId(i));
+            temp.put("value", provinceSalesMapper.querySalesByProvince(i));
+            result.add(temp);
+        }
+        return result;
     }
 }

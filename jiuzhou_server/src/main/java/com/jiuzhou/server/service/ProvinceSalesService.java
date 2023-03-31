@@ -3,6 +3,7 @@ package com.jiuzhou.server.service;
 import com.jiuzhou.server.entity.ProvinceSales;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,4 +16,5 @@ import java.util.List;
  */
 public interface ProvinceSalesService extends IService<ProvinceSales> {
     public Integer querySalesByProvince(String pname);
+    public  List<HashMap<String, Object>> queryAllSalesByProvince();
 }

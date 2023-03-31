@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -28,6 +29,27 @@ public class ProvinceSalesController {
     @GetMapping("/querySalesByProvince")
     public HashMap<String, Object> querySalesByProvince(@RequestParam(value = "province")String pname){
         Integer provinceSales = service.querySalesByProvince(pname);
+        if(provinceSales != null){
+            return new HashMap<String, Object>(){{
+                put("msg","success!");
+                put("code","1");
+                put("result", provinceSales);  //嵌套json
+            }};
+        }
+        else {
+            return new HashMap<String, Object>(){{
+                put("msg","fail!");
+                put("code","0");
+            }};
+        }
+    }
+
+    /** 查询所有省份销量的方法
+     * @return provinceSales HashMap<String, Integer> String为省份名，Integer省份销售额
+     */
+    @GetMapping("/queryAllSalesByProvince")
+    public HashMap<String, Object> queryAllSalesByProvince(){
+        List<HashMap<String, Object>> provinceSales = service.queryAllSalesByProvince();
         if(provinceSales != null){
             return new HashMap<String, Object>(){{
                 put("msg","success!");
