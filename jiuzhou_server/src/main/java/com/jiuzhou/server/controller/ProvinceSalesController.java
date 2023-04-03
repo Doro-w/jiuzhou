@@ -26,8 +26,8 @@ public class ProvinceSalesController {
      * @param pname 省份名
      * @return provinceSales 省份销售额
      */
-    @GetMapping("/querySalesByProvince")
-    public HashMap<String, Object> querySalesByProvince(@RequestParam(value = "province")String pname){
+    @GetMapping("/queryProvinceSales")
+    public HashMap<String, Object> queryProvinceSales(@RequestParam(value = "province")String pname){
         Integer provinceSales = service.queryProvinceSales(pname);
         if(provinceSales != null){
             return new HashMap<String, Object>(){{

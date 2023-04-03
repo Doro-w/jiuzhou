@@ -29,8 +29,8 @@ public class CitySalesController {
      */
     @GetMapping("queryCitySales")
     public HashMap<String, Object> queryCitySales(@RequestParam(value = "city")String cname){
-        Integer citySales = service.queryCitySales(cname);
-        if(citySales != null){
+        int citySales = service.queryCitySales(cname);
+        if(citySales >= 0){
             return new HashMap<String, Object>(){{
                 put("msg","success!");
                 put("code","1");

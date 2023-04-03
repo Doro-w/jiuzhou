@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface CityMapper extends BaseMapper<City> {
-    @Select("select * from city where name = ${cname}")
+    @Select("select * from city where name = #{cname}")
     City queryIndexByName(String cname);
 
     @Select("select count(*) from city where province_id = ${privinceId}")
