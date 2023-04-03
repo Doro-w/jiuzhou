@@ -3,6 +3,9 @@ package com.jiuzhou.server.service;
 import com.jiuzhou.server.entity.CitySales;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -12,5 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-03-06
  */
 public interface CitySalesService extends IService<CitySales> {
-    public Integer querySalesByCity(String city);
+    public Integer queryCitySales(String city);
+    public List<HashMap<String, Object>> queryCitySalesByProvince(String pname);
 }

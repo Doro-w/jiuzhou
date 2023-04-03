@@ -23,26 +23,26 @@ import java.util.List;
 @Service("ProvinceSales")
 public class ProvinceSalesServiceImpl extends ServiceImpl<ProvinceSalesMapper, ProvinceSales> implements ProvinceSalesService {
     @Autowired
-    private ProvinceSalesMapper provinceSalesMapper;
+    ProvinceSalesMapper provinceSalesMapper;
 
     @Autowired
-    private ProvinceMapper provinceMapper;
+    ProvinceMapper provinceMapper;
 
     @Override
-    public Integer querySalesByProvince(String pname){
+    public Integer queryProvinceSales(String pname){
         // 根据省份名获取省份id
-        Integer provinceId = provinceMapper.queryIdByProvinceName(pname);
-        return provinceSalesMapper.querySalesByProvince(provinceId);
+        Integer pId = provinceMapper.queryIdByProvinceName(pname);
+        return provinceSalesMapper.queryProvinceSales(pId);
     }
 
     @Override
-    public  List<HashMap<String, Object>> queryAllSalesByProvince(){
+    public  List<HashMap<String, Object>> queryAllProvinceSales(){
         List<HashMap<String, Object>> result = new ArrayList<>();
         int count = provinceMapper.countProvince();
-        for(int i = 1; i < count; ++i){
+        for(int i = 1; i <= count; i++){
             HashMap<String, Object> temp = new HashMap<>();
             temp.put("name", provinceMapper.queryNameByProvinceId(i));
-            temp.put("value", provinceSalesMapper.querySalesByProvince(i));
+            temp.put("value", provinceSalesMapper.queryProvinceSales(i));
             result.add(temp);
         }
         return result;
