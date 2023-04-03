@@ -232,7 +232,13 @@ export default {
           label: true,
           showDelay: 0,
           confine: true,
-          formatter: '{b}<br/>{c}'
+          // formatter: '{b}<br/>{c}'
+          formatter: function (params) {
+            if(params.value){
+              return params.seriesName + '<br/>' + params.name + ' : ' + params.value;
+            }else{
+              return params.seriesName + '<br/>' + params.name + ' : ' + '0'; }
+          }
         },
         visualMap: {
           right: '10%',                               //组件离容器右侧的距离,'20%'
@@ -305,7 +311,7 @@ export default {
   },
   methods: {
     getSaleData() {
-      this.$http.get('/provinceSales/queryAllSalesByProvince').then((response)=> {
+      this.$http.get('/provinceSales/queryAllProvinceSales').then((response)=> {
         if(response.data.code === '1') {
           this.provinceSaleData = response.data.result;
           this.initOption.series[0].data = this.provinceSaleData;
@@ -348,7 +354,7 @@ export default {
           url:'https://www.bookbook.cc/api/data-view/map/china'
         })
         this.chinaMapData = res;
-        console.log('china:',res);
+
       }
       // 注册地图数据
       this.$echarts.registerMap('China', this.chinaMapData)
@@ -363,15 +369,17 @@ export default {
         // 先判断是否已经存在需要请求的数据
         if (!this.cityMapData[ProvinceInfo.key]) {
           // 不存在： 发送请求,获取点击的地图的矢量数据
-          const { data: res } = await this.$http({
+          const { data: res } = await this.$http.get('/citySales/queryCitySalesByProvince?province=' + e.name);
+          const { data: response} = await this.$http({
             method:'get',
-            url:'https://www.bookbook.cc/api/data-view' + ProvinceInfo.path
+            url:'https://www.bookbook.cc/api/data-view/' + ProvinceInfo.path
           })
-          console.log('cityMap:', res)
+          console.log('cityMap:', res.result)
           // 把请求到的数据保存下来
-          this.cityMapData[ProvinceInfo.key] = res
+          this.cityMapData[ProvinceInfo.key] = response
           // 注册点击的地图
-          this.$echarts.registerMap(ProvinceInfo.key, res)
+          this.$echarts.registerMap(ProvinceInfo.key, response)
+          this.citySaleData = res.result;
         }
 
         // 设置最新的配置项
@@ -380,16 +388,7 @@ export default {
             {
               name:'',
               map:ProvinceInfo.key,
-              data: [
-                {
-                  name: '北京',
-                  value: 200
-                },
-                {
-                  name: '河南',
-                  value: 300
-                }
-              ],
+              data: this.citySaleData,
             }
           ]
         }
@@ -403,16 +402,16 @@ export default {
     },
 
     // 发送请求，获取数据
-    async getData() {
-      const { data: res } = await this.$http({
-        method:'get',
-        url:'https://www.bookbook.cc/api/data-view/map'
-      })
-      this.allData = res
-      console.log('map:', res)
-      // console.log("res "+ JSON.stringify(res))
-      this.updateChart()
-    },
+    // async getData() {
+    //   const { data: res } = await this.$http({
+    //     method:'get',
+    //     url:'https://www.bookbook.cc/api/data-view/map'
+    //   })
+    //   this.allData = res
+    //   console.log('map:', res)
+    //   // console.log("res "+ JSON.stringify(res))
+    //   this.updateChart()
+    // },
 
     // 更新图表配置项
     // updateChart() {
