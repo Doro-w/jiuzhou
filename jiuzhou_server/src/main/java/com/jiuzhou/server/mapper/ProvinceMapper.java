@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface ProvinceMapper extends BaseMapper<Province> {
-    @Select("select id from province where name = ${province}")
+    @Select("select id from province where name = #{province}")
     Integer queryIdByProvinceName(String province);
 
     @Select("select count(*) from province")

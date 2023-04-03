@@ -15,6 +15,6 @@ import java.util.List;
  * @since 2023-03-06
  */
 public interface CitySalesService extends IService<CitySales> {
-    public Integer queryCitySales(String city);
+    public int queryCitySales(String city);
     public List<HashMap<String, Object>> queryCitySalesByProvince(String pname);
 }

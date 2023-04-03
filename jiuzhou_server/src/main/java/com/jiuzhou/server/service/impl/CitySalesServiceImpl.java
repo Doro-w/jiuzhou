@@ -34,11 +34,15 @@ public class CitySalesServiceImpl extends ServiceImpl<CitySalesMapper, CitySales
     CitySalesMapper citySalesMapper;
 
     @Override
-    public Integer queryCitySales(String cname){
+    public int queryCitySales(String cname){
         // 根据城市名获取province_id, city_index
         City city = cityMapper.queryIndexByName(cname);
-        Integer amount = citySalesMapper.querySalesByCity(city.getCityIndex(), city.getProvinceId());
-        return amount;
+        if(city != null){
+            return citySalesMapper.querySalesByCity(city.getCityIndex(), city.getProvinceId());
+        }
+        else {
+            return -1;
+        }
     }
 
     @Override
