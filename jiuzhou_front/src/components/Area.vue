@@ -222,10 +222,12 @@ export default {
       // 初始化配置项
       initOption: {
         title: {
-          text: '中国各省销售分布',
           left: 20,
           top: 20,
-          color: '#FFFFFF'
+          text: '中国各省销售分布',
+          textStyle: {
+            color: '#FFFFFF'
+          }
         },
         tooltip: {
           trigger:'item',
@@ -250,11 +252,13 @@ export default {
             color: ['lightskyblue', 'yellow', 'orangered']
           },
           text: ['High', 'Low'],
+          textStyle: {
+            color: '#FFFFFF'
+          },
           calculable: true
         },
         toolbox: {
           show: true,
-          //orient: 'vertical',
           left: 'left',
           top: 'top',
           feature: {
@@ -390,7 +394,11 @@ export default {
               map:ProvinceInfo.key,
               data: this.citySaleData,
             }
-          ]
+          ],
+          visualMap: {
+            min: 50,
+            max: 150,
+          },
         }
         // 赋值给 echarts实例
         this.chartInstance.setOption(changeOption)
