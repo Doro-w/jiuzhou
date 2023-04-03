@@ -12,15 +12,8 @@ import javax.annotation.PostConstruct;
 @MapperScan("com.jiuzhou.server.mapper")
 public class Application {
 
-//    @Autowired
-//    private ProvinceSalesGenerator provinceSalesGenerator;
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class,args);
     }
 
-//    @PostConstruct
-//    public void start(){
-//        provinceSalesGenerator.generate();
-//    }
 }

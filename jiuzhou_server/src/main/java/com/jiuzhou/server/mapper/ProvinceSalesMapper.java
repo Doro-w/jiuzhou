@@ -20,7 +20,7 @@ import java.util.List;
 @Mapper
 public interface ProvinceSalesMapper extends BaseMapper<ProvinceSales> {
     @Select("select amount from province_sales where province_id = #{provinceId}")
-    Integer querySalesByProvince(Integer provinceId);
+    Integer queryProvinceSales(Integer provinceId);
 
     @Insert("insert into province_sales(province_id, amount) values (#{provinceId}, #{amount});")
     int insertProvinceSales(Integer provinceId, Integer amount);

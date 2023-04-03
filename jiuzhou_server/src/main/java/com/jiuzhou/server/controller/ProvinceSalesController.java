@@ -20,7 +20,7 @@ import java.util.List;
 @CrossOrigin
 public class ProvinceSalesController {
     @Autowired
-    private ProvinceSalesService service;
+    ProvinceSalesService service;
 
     /** 查询省份销量的方法
      * @param pname 省份名
@@ -28,7 +28,7 @@ public class ProvinceSalesController {
      */
     @GetMapping("/querySalesByProvince")
     public HashMap<String, Object> querySalesByProvince(@RequestParam(value = "province")String pname){
-        Integer provinceSales = service.querySalesByProvince(pname);
+        Integer provinceSales = service.queryProvinceSales(pname);
         if(provinceSales != null){
             return new HashMap<String, Object>(){{
                 put("msg","success!");
@@ -47,9 +47,9 @@ public class ProvinceSalesController {
     /** 查询所有省份销量的方法
      * @return provinceSales HashMap<String, Integer> String为省份名，Integer省份销售额
      */
-    @GetMapping("/queryAllSalesByProvince")
-    public HashMap<String, Object> queryAllSalesByProvince(){
-        List<HashMap<String, Object>> provinceSales = service.queryAllSalesByProvince();
+    @GetMapping("/queryAllProvinceSales")
+    public HashMap<String, Object> queryAllProvinceSales(){
+        List<HashMap<String, Object>> provinceSales = service.queryAllProvinceSales();
         if(provinceSales != null){
             return new HashMap<String, Object>(){{
                 put("msg","success!");
