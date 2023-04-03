@@ -24,199 +24,7 @@ export default {
       allData: null,
       // 获取省份矢量地图数据缓存
       cityMapData: {},
-      cityValue:[
-        { name: '海门', value: 9 },
-        { name: '鄂尔多斯', value: 12 },
-        { name: '招远', value: 12 },
-        { name: '舟山', value: 12 },
-        { name: '齐齐哈尔', value: 14 },
-        { name: '盐城', value: 15 },
-        { name: '赤峰', value: 16 },
-        { name: '青岛', value: 18 },
-        { name: '乳山', value: 18 },
-        { name: '金昌', value: 19 },
-        { name: '泉州', value: 21 },
-        { name: '莱西', value: 21 },
-        { name: '日照', value: 21 },
-        { name: '胶南', value: 22 },
-        { name: '南通', value: 23 },
-        { name: '拉萨', value: 24 },
-        { name: '云浮', value: 24 },
-        { name: '梅州', value: 25 },
-        { name: '文登', value: 25 },
-        { name: '上海', value: 25 },
-        { name: '攀枝花', value: 25 },
-        { name: '威海', value: 25 },
-        { name: '承德', value: 25 },
-        { name: '厦门', value: 26 },
-        { name: '汕尾', value: 26 },
-        { name: '潮州', value: 26 },
-        { name: '丹东', value: 27 },
-        { name: '太仓', value: 27 },
-        { name: '曲靖', value: 27 },
-        { name: '烟台', value: 28 },
-        { name: '福州', value: 29 },
-        { name: '瓦房店', value: 30 },
-        { name: '即墨', value: 30 },
-        { name: '抚顺', value: 31 },
-        { name: '玉溪', value: 31 },
-        { name: '张家口', value: 31 },
-        { name: '阳泉', value: 31 },
-        { name: '莱州', value: 32 },
-        { name: '湖州', value: 32 },
-        { name: '汕头', value: 32 },
-        { name: '昆山', value: 33 },
-        { name: '宁波', value: 33 },
-        { name: '湛江', value: 33 },
-        { name: '揭阳', value: 34 },
-        { name: '荣成', value: 34 },
-        { name: '连云港', value: 35 },
-        { name: '葫芦岛', value: 35 },
-        { name: '常熟', value: 36 },
-        { name: '东莞', value: 36 },
-        { name: '河源', value: 36 },
-        { name: '淮安', value: 36 },
-        { name: '泰州', value: 36 },
-        { name: '南宁', value: 37 },
-        { name: '营口', value: 37 },
-        { name: '惠州', value: 37 },
-        { name: '江阴', value: 37 },
-        { name: '蓬莱', value: 37 },
-        { name: '韶关', value: 38 },
-        { name: '嘉峪关', value: 38 },
-        { name: '广州', value: 38 },
-        { name: '延安', value: 38 },
-        { name: '太原', value: 39 },
-        { name: '清远', value: 39 },
-        { name: '中山', value: 39 },
-        { name: '昆明', value: 39 },
-        { name: '寿光', value: 40 },
-        { name: '盘锦', value: 40 },
-        { name: '长治', value: 41 },
-        { name: '深圳', value: 41 },
-        { name: '珠海', value: 42 },
-        { name: '宿迁', value: 43 },
-        { name: '咸阳', value: 43 },
-        { name: '铜川', value: 44 },
-        { name: '平度', value: 44 },
-        { name: '佛山', value: 44 },
-        { name: '海口', value: 44 },
-        { name: '江门', value: 45 },
-        { name: '章丘', value: 45 },
-        { name: '肇庆', value: 46 },
-        { name: '大连', value: 47 },
-        { name: '临汾', value: 47 },
-        { name: '吴江', value: 47 },
-        { name: '石嘴山', value: 49 },
-        { name: '沈阳', value: 50 },
-        { name: '苏州', value: 50 },
-        { name: '茂名', value: 50 },
-        { name: '嘉兴', value: 51 },
-        { name: '长春', value: 51 },
-        { name: '胶州', value: 52 },
-        { name: '银川', value: 52 },
-        { name: '张家港', value: 52 },
-        { name: '三门峡', value: 53 },
-        { name: '锦州', value: 54 },
-        { name: '南昌', value: 54 },
-        { name: '柳州', value: 54 },
-        { name: '三亚', value: 54 },
-        { name: '自贡', value: 56 },
-        { name: '吉林', value: 56 },
-        { name: '阳江', value: 57 },
-        { name: '泸州', value: 57 },
-        { name: '西宁', value: 57 },
-        { name: '宜宾', value: 58 },
-        { name: '呼和浩特', value: 58 },
-        { name: '成都', value: 58 },
-        { name: '大同', value: 58 },
-        { name: '镇江', value: 59 },
-        { name: '桂林', value: 59 },
-        { name: '张家界', value: 59 },
-        { name: '宜兴', value: 59 },
-        { name: '北海', value: 60 },
-        { name: '西安', value: 61 },
-        { name: '金坛', value: 62 },
-        { name: '东营', value: 62 },
-        { name: '牡丹江', value: 63 },
-        { name: '遵义', value: 63 },
-        { name: '绍兴', value: 63 },
-        { name: '扬州', value: 64 },
-        { name: '常州', value: 64 },
-        { name: '潍坊', value: 65 },
-        { name: '重庆', value: 66 },
-        { name: '台州', value: 67 },
-        { name: '南京', value: 67 },
-        { name: '滨州', value: 70 },
-        { name: '贵阳', value: 71 },
-        { name: '无锡', value: 71 },
-        { name: '本溪', value: 71 },
-        { name: '克拉玛依', value: 72 },
-        { name: '渭南', value: 72 },
-        { name: '马鞍山', value: 72 },
-        { name: '宝鸡', value: 72 },
-        { name: '焦作', value: 75 },
-        { name: '句容', value: 75 },
-        { name: '北京', value: 79 },
-        { name: '徐州', value: 79 },
-        { name: '衡水', value: 80 },
-        { name: '包头', value: 80 },
-        { name: '绵阳', value: 80 },
-        { name: '乌鲁木齐', value: 84 },
-        { name: '枣庄', value: 84 },
-        { name: '杭州', value: 84 },
-        { name: '淄博', value: 85 },
-        { name: '鞍山', value: 86 },
-        { name: '溧阳', value: 86 },
-        { name: '库尔勒', value: 86 },
-        { name: '安阳', value: 90 },
-        { name: '开封', value: 90 },
-        { name: '济南', value: 92 },
-        { name: '德阳', value: 93 },
-        { name: '温州', value: 95 },
-        { name: '九江', value: 96 },
-        { name: '邯郸', value: 98 },
-        { name: '临安', value: 99 },
-        { name: '兰州', value: 99 },
-        { name: '沧州', value: 100 },
-        { name: '临沂', value: 103 },
-        { name: '南充', value: 104 },
-        { name: '天津', value: 105 },
-        { name: '富阳', value: 106 },
-        { name: '泰安', value: 112 },
-        { name: '诸暨', value: 112 },
-        { name: '郑州', value: 113 },
-        { name: '哈尔滨', value: 114 },
-        { name: '聊城', value: 116 },
-        { name: '芜湖', value: 117 },
-        { name: '唐山', value: 119 },
-        { name: '平顶山', value: 119 },
-        { name: '邢台', value: 119 },
-        { name: '德州', value: 120 },
-        { name: '济宁', value: 120 },
-        { name: '荆州', value: 127 },
-        { name: '宜昌', value: 130 },
-        { name: '义乌', value: 132 },
-        { name: '丽水', value: 133 },
-        { name: '洛阳', value: 134 },
-        { name: '秦皇岛', value: 136 },
-        { name: '株洲', value: 143 },
-        { name: '石家庄', value: 147 },
-        { name: '莱芜', value: 148 },
-        { name: '常德', value: 152 },
-        { name: '保定', value: 153 },
-        { name: '湘潭', value: 154 },
-        { name: '金华', value: 157 },
-        { name: '岳阳', value: 169 },
-        { name: '长沙', value: 175 },
-        { name: '衢州', value: 177 },
-        { name: '廊坊', value: 193 },
-        { name: '菏泽', value: 194 },
-        { name: '合肥', value: 229 },
-        { name: '武汉', value: 273 },
-        { name: '大庆', value: 279 }
-
-      ],
+      cityValue:[],
       cityPos: {
         海门: [121.15, 31.89],
         鄂尔多斯: [109.781327, 39.608266],
@@ -409,6 +217,64 @@ export default {
         武汉: [114.31, 30.52],
         大庆: [125.03, 46.58]
       },
+      provinceSaleData:[],
+      citySaleData: {},
+      // 初始化配置项
+      initOption: {
+        title: {
+          text: '中国各省销售分布',
+          left: 20,
+          top: 20,
+          color: '#FFFFFF'
+        },
+        tooltip: {
+          trigger:'item',
+          label: true,
+          showDelay: 0,
+          confine: true,
+          formatter: '{b}<br/>{c}'
+        },
+        visualMap: {
+          right: '10%',                               //组件离容器右侧的距离,'20%'
+          bottom: '20%',                              //组件离容器下侧的距离,'20%'
+          padding:5,                                   //图例内边距，单位px  5  [5, 10]  [5,10,5,10]
+          min: 500,
+          max: 2000,
+          inRange: {
+            color: ['lightskyblue', 'yellow', 'orangered']
+          },
+          text: ['High', 'Low'],
+          calculable: true
+        },
+        toolbox: {
+          show: true,
+          //orient: 'vertical',
+          left: 'left',
+          top: 'top',
+          feature: {
+            dataView: { readOnly: false },
+            restore: {},
+            saveAsImage: {}
+          }
+        },
+        series: [
+          {
+            name: '',
+            type: 'map',
+            roam: false, // 禁止拖拽
+            map: 'China',
+            label:{
+              show:true
+            },
+            emphasis: {
+              label: {
+                show: true
+              },
+            },
+            data: this.provinceSaleData,
+          }
+        ]
+      }
       }
   },
   computed: {
@@ -426,26 +292,36 @@ export default {
 
     },
   },
-  created() {
-    //this.getData();
+  async created() {
+    await this.getSaleData()
+    await this.initChart()
   },
   mounted() {
-    this.initChart();
-
-    window.addEventListener('resize', this.screenAdapter);
-    // 主动触发 响应式配置
-    this.screenAdapter()
+    this.initChart()
+    window.addEventListener('resize', this.screenAdapter)
   },
   unmounted() {
     window.removeEventListener('resize', this.screenAdapter)
   },
   methods: {
     getSaleData() {
-      this.$http({
-        method:'get',
-        url:
+      this.$http.get('/provinceSales/queryAllSalesByProvince').then((response)=> {
+        if(response.data.code === '1') {
+          this.provinceSaleData = response.data.result;
+          this.initOption.series[0].data = this.provinceSaleData;
+        }else {
+          console.log('获取省份销量数据失败！')
+        }
       })
-    }
+    },
+
+    // getSaleDataByProvince(province) {
+    //   if(!this.citySaleData[province]){
+    //     this.$http.get('/')
+    //   }
+    //
+    // }
+
     // 转换数据
     convertData(data) {
       var res = [];
@@ -477,107 +353,8 @@ export default {
       // 注册地图数据
       this.$echarts.registerMap('China', this.chinaMapData)
 
-
-      // 初始化配置项
-      const initOption = {
-        title: {
-          text: '中国各省销售分布',
-          left: 20,
-          top: 20
-        },
-        // geo: {
-        //   type: 'map',
-        //   map: 'china',
-        //   top: '5%',
-        //   bottom: '5%',
-        //   //允许拖动及缩放
-        //   roam: true,
-        //   // zoom: 1.1, //默认缩放比例
-        //   itemStyle: {
-        //     // 地图的填充色
-        //     areaColor: 'rgb(62,170,253)',
-        //     // 省份的边框色
-        //     borderColor: '#ffffff',
-        //   },
-        //   label: {
-        //     show: true,
-        //     // 省份名称颜色
-        //     color: '',
-        //     formatter: `{a}`
-        //   },
-        //   tooltip: {
-        //     trigger:'item',
-        //     showDelay: 0,
-        //     confine: true,
-        //     formatter: '{b}<br/>{c}'
-        //   },
-        // },
-
-        tooltip: {
-          trigger:'item',
-          showDelay: 0,
-          confine: true,
-          formatter: '{b}<br/>{c}'
-        },
-        visualMap: {
-          left: 'right',
-          min: 500000,
-          max: 38000000,
-          inRange: {
-            color: [
-              '#313695',
-              '#4575b4',
-              '#74add1',
-              '#abd9e9',
-              '#e0f3f8',
-              '#ffffbf',
-              '#fee090',
-              '#fdae61',
-              '#f46d43',
-              '#d73027',
-              '#a50026'
-            ]
-          },
-          text: ['High', 'Low'],
-          calculable: true
-        },
-        toolbox: {
-          show: true,
-          //orient: 'vertical',
-          left: 'left',
-          top: 'top',
-          feature: {
-            dataView: { readOnly: false },
-            restore: {},
-            saveAsImage: {}
-          }
-        },
-        series: [
-          {
-            name:'China Sale Map',
-            type: 'map',
-            roam:true,
-            map:'China',
-            emphasis: {
-              label: {
-                show: true
-              },
-            },
-            data: [
-              {
-                name: '北京',
-                value: 200
-              },
-              {
-                name: '河南',
-                value: 300
-              }
-            ],
-          }
-        ]
-      }
-
-      this.chartInstance.setOption(initOption);
+      this.chartInstance.clear();
+      await this.chartInstance.setOption(this.initOption, true);
 
       // 进入省份事件函数
       this.chartInstance.on('click', async e => {
@@ -586,7 +363,6 @@ export default {
         // 先判断是否已经存在需要请求的数据
         if (!this.cityMapData[ProvinceInfo.key]) {
           // 不存在： 发送请求,获取点击的地图的矢量数据
-
           const { data: res } = await this.$http({
             method:'get',
             url:'https://www.bookbook.cc/api/data-view' + ProvinceInfo.path
@@ -602,7 +378,7 @@ export default {
         const changeOption = {
           series: [
             {
-              name:ProvinceInfo.key + ' Sale Map',
+              name:'',
               map:ProvinceInfo.key,
               data: [
                 {
@@ -628,7 +404,6 @@ export default {
 
     // 发送请求，获取数据
     async getData() {
-      // http://101.34.160.195:8888/api/map
       const { data: res } = await this.$http({
         method:'get',
         url:'https://www.bookbook.cc/api/data-view/map'
@@ -742,25 +517,7 @@ export default {
 
     // 回到中国地图
     chinaMap() {
-      const chinaMapOption = {
-        series: [
-          {
-            name:'China Sale Map',
-            map:'China',
-            data: [
-              {
-                name: '北京',
-                value: 200
-              },
-              {
-                name: '河南',
-                value: 300
-              }
-            ],
-          }
-        ]
-      }
-      this.chartInstance.setOption(chinaMapOption)
+      this.chartInstance.setOption(this.initOption);
     },
   }
 }
