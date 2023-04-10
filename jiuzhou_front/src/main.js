@@ -11,7 +11,6 @@ import * as echarts from 'echarts'
 import './assets/css/global.less'
 
 
-
 // axios 配置接口默认路径
 axios.defaults.baseURL = 'http://127.0.0.1:8181' // 使用接口数据 可把后端仓库拉下来
 

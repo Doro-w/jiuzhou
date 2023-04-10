@@ -3,7 +3,7 @@
     <div class="screen-body">
       <section class="screen-left">
         <div id="left-top" :class="{ fullscreen: fullScreenStatus.trend }" >
-          <!-- 地区销量趋势图表 -->
+          <!-- 设备信息图表 -->
           <!--          <Trend ref="trend"></Trend>-->
           <DeviceInfoTable></DeviceInfoTable>
           <!--          放大按钮-->
@@ -14,7 +14,7 @@
       </section>
       <section class="screen-middle">
         <div id="middle-top" :class="{ fullscreen: fullScreenStatus.map }">
-          <!-- 商家分布图表 -->
+          <!-- 销量分布图表 -->
           <areaMap ref="map"></areaMap>
           <!--          <NewMap></NewMap>-->
           <!--          <div class="resize">-->
@@ -144,7 +144,7 @@ export default {
   margin-top: 10px;
   .screen-left {
     height: 100%;
-    width: 23.5%;
+    width: 30%;
     #left-top {
       height: 53%;
       position: relative;
