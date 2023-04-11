@@ -36,7 +36,7 @@ public class CitySalesGenerator {
                 cCount = cityMapper.countByProvinceId(i);
                 if(cCount > 0){
                     for(int j = 1; j <= cCount; j++){
-                        int randomNum = secureRandom.nextInt(150);
+                        int randomNum = secureRandom.nextInt(100);
                         citySalesMapper.insertCitySales(j, i, randomNum);
                     }
                 }

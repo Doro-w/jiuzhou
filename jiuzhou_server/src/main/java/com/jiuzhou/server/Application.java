@@ -1,5 +1,6 @@
 package com.jiuzhou.server;
 
+import com.jiuzhou.server.generator.CitySalesGenerator;
 import com.jiuzhou.server.generator.ProvinceSalesGenerator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;

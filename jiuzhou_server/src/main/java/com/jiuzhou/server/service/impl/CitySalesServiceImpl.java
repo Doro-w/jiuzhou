@@ -5,6 +5,7 @@ import com.jiuzhou.server.entity.CitySales;
 import com.jiuzhou.server.mapper.CityMapper;
 import com.jiuzhou.server.mapper.CitySalesMapper;
 import com.jiuzhou.server.mapper.ProvinceMapper;
+import com.jiuzhou.server.mapper.ProvinceSalesMapper;
 import com.jiuzhou.server.service.CitySalesService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class CitySalesServiceImpl extends ServiceImpl<CitySalesMapper, CitySales
 
     @Autowired
     CityMapper cityMapper;
+
+    @Autowired
+    ProvinceSalesMapper provinceSalesMapper;
 
     @Autowired
     CitySalesMapper citySalesMapper;
@@ -57,6 +61,13 @@ public class CitySalesServiceImpl extends ServiceImpl<CitySalesMapper, CitySales
             temp.put("value", citySalesMapper.querySalesByCity(i, pId));
             result.add(temp);
         }
+        // 台湾省由于前端地图原因，增加一个额外数据
+        HashMap<String, Object> temp = new HashMap<>();
+        Integer twId = provinceMapper.queryIdByProvinceName("台湾");
+        temp.put("name", "台湾省");
+        temp.put("value", provinceSalesMapper.queryProvinceSales(twId));
+        result.add(temp);
+
         return result;
     }
 }
