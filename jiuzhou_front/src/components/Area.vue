@@ -246,10 +246,10 @@ export default {
           right: '10%',                               //组件离容器右侧的距离,'20%'
           bottom: '20%',                              //组件离容器下侧的距离,'20%'
           padding:5,                                   //图例内边距，单位px  5  [5, 10]  [5,10,5,10]
-          min: 500,
-          max: 2000,
+          min: 100,
+          max: 1000,
           inRange: {
-            color: ['lightskyblue', 'yellow', 'orangered']
+            color: ['#37a2da', '#32c5e9', '#67e0e3', '#9fe6b8', '#ffdb5c', '#ff9f7f', '#fb7293']
           },
           text: ['High', 'Low'],
           textStyle: {
@@ -273,6 +273,9 @@ export default {
             type: 'map',
             roam: false, // 禁止拖拽
             map: 'China',
+            center: '',
+            layoutCenter: ['50%','50%'],
+            layoutSize: '90%',
             label:{
               show:true
             },
@@ -358,7 +361,6 @@ export default {
           url:'https://www.bookbook.cc/api/data-view/map/china'
         })
         this.chinaMapData = res;
-
       }
       // 注册地图数据
       this.$echarts.registerMap('China', this.chinaMapData)
@@ -366,7 +368,7 @@ export default {
       this.chartInstance.clear();
       await this.chartInstance.setOption(this.initOption, true);
 
-      // 进入省份事件函数
+      // 点击进入省份，查看城市销量事件函数
       this.chartInstance.on('click', async e => {
         // 通过工具函数拿到点击的地图对应的中文拼音(key),和拼接出需要的文件路径(path)
         const ProvinceInfo = getProvinceMapInfo(e.name)
@@ -384,6 +386,8 @@ export default {
           // 注册点击的地图
           this.$echarts.registerMap(ProvinceInfo.key, response)
           this.citySaleData = res.result;
+
+          console.log(e.name)
         }
 
         // 设置最新的配置项
@@ -396,9 +400,15 @@ export default {
             }
           ],
           visualMap: {
-            min: 50,
-            max: 150,
+            min: 0,
+            max: 100,
           },
+        }
+        // 对海南地图进行偏移放大
+        if(e.name === '海南' || e.name === 'hainan') {
+          changeOption.series[0].center = [109.844902, 19.0392];
+          changeOption.series[0].layoutCenter = ['30%', '30%'];
+          changeOption.series[0].layoutSize = "400%";
         }
         // 赋值给 echarts实例
         this.chartInstance.setOption(changeOption)
@@ -408,90 +418,6 @@ export default {
       //   this.getSaleNumberByProvince(e.name);
       // })
     },
-
-    // 发送请求，获取数据
-    // async getData() {
-    //   const { data: res } = await this.$http({
-    //     method:'get',
-    //     url:'https://www.bookbook.cc/api/data-view/map'
-    //   })
-    //   this.allData = res
-    //   console.log('map:', res)
-    //   // console.log("res "+ JSON.stringify(res))
-    //   this.updateChart()
-    // },
-
-    // 更新图表配置项
-    // updateChart() {
-    //   // 图例的数据
-    //   const legendArr = this.allData.map(item => {
-    //     return item.name
-    //   })
-    //   // 散点图的数据
-    //   const seriesArr = this.allData.map(item => {
-    //     // return 一个类别下的所有散点数据
-    //     return {
-    //       type: 'effectScatter',
-    //       // 图例的name需要与series的name相同
-    //       name: item.name,
-    //       data: item.children,
-    //       // 让散点图使用地图坐标系统
-    //       coordinateSystem: 'geo',
-    //       // 涟漪动画效果配置
-    //       rippleEffect: {
-    //         // 涟漪效果直径
-    //         scale: 7,
-    //         // 空心的涟漪动画效果
-    //         brushType: 'stroke',
-    //         period: 4,
-    //         number: 3,
-    //       },
-    //       itemStyle:{
-    //         normal:{
-    //           color:"#ffcdb2"
-    //         }
-    //       }
-    //     }
-    //   })
-    //   seriesArr.push({
-    //     type: 'scatter',
-    //     // 图例的name需要与series的name相同
-    //     name: 'test1',
-    //     // data: [{
-    //     //   name:"大庆",
-    //     //   value:[125.03,46.58,9]
-    //     // },
-    //     //   {
-    //     //     name:"鄂尔多斯",
-    //     //     value:[109.781327,39.608266,32]
-    //     //   }],
-    //     data:this.convertData(this.cityValue),
-    //     // 让散点图使用地图坐标系统
-    //     coordinateSystem: 'geo',
-    //     itemStyle:{
-    //       normal:{
-    //         color:"rgb(249,255,249)"
-    //       }
-    //     },
-    //     symbolSize:function (val) {
-    //       return val[2] / 18;
-    //     }
-    //
-    //   })
-    //
-    //   // 数据配置项
-    //   const dataOption = {
-    //     legend: {
-    //       left: '2%',
-    //       bottom: '5%',
-    //       // 图例的方向
-    //       orient: 'verticle',
-    //       data: legendArr.reverse(),
-    //     },
-    //     series: seriesArr,
-    //   }
-    //   this.chartInstance.setOption(dataOption)
-    // },
 
     // 不同分辨率的响应式
     screenAdapter() {
