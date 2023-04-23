@@ -1,7 +1,7 @@
 #配置数据源
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/jiuzhou
+    url: jdbc:mysql://localhost:3306/jiuzhou?serverTimezone=Asia/Shanghai&useTimezone=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver

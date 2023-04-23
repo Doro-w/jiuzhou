@@ -14,8 +14,7 @@
       <el-table-column
           prop="type"
           label="设备型号"
-          align="center"
-          :formatter=FilterType>
+          align="center">
       </el-table-column>
       <el-table-column
           prop="area"
@@ -31,8 +30,7 @@
       <el-table-column
           prop="alarm"
           label="报警信息"
-          align="center"
-          :formatter=FilterAlarm>
+          align="center">
       </el-table-column>
     </el-table>
 
@@ -81,15 +79,9 @@ export default {
 
 
     },
-    FilterType(row) {
-      return "型号" + row.type;
-    },
     FilterState(row) {
       return row.state === 0 ? "异常" : "正常";
     },
-    FilterAlarm(row) {
-      return "报警信息" + row.alarm;
-    }
   },
   created(){
     this.getAllDevice();

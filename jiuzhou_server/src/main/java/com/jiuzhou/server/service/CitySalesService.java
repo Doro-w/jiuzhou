@@ -1,7 +1,9 @@
 package com.jiuzhou.server.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jiuzhou.server.entity.CitySales;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jiuzhou.server.entity.CitySalesModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,5 +18,5 @@ import java.util.List;
  */
 public interface CitySalesService extends IService<CitySales> {
     public int queryCitySales(String city);
-    public List<HashMap<String, Object>> queryCitySalesByProvince(String pname);
+    public List<JSONObject> queryAllCitySalesByProvince(String pname);
 }

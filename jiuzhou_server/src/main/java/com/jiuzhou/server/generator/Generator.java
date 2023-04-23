@@ -56,7 +56,7 @@ public class Generator {
         //配置数据库相关的信息
         StrategyConfig strategyConfig = new StrategyConfig();
         //设置相关表，需要按情况修改
-        strategyConfig.setInclude("capacity_monthly");
+        strategyConfig.setInclude("alarm", "device_type");
         //setNaming映射表名和实体类（因为java命名方式和数据库有区别）
         //underline_to_camel表示下划线转驼峰
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);

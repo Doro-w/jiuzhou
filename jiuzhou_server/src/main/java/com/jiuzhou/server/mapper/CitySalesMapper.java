@@ -2,11 +2,13 @@ package com.jiuzhou.server.mapper;
 
 import com.jiuzhou.server.entity.CitySales;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.jiuzhou.server.entity.CitySalesModel;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import javax.annotation.ManagedBean;
+import java.util.List;
 
 /**
  * <p>
@@ -18,6 +20,8 @@ import javax.annotation.ManagedBean;
  */
 @Mapper
 public interface CitySalesMapper extends BaseMapper<CitySales> {
+    List<CitySalesModel> queryAllCitySalesByProvince(String pname);
+
     @Select("select amount from city_sales where city_index = ${cityIndex} and province_id = ${provinceId}")
     int querySalesByCity(Integer cityIndex, Integer provinceId);
 

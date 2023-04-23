@@ -1,7 +1,11 @@
 package com.jiuzhou.server.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.jiuzhou.server.entity.City;
 import com.jiuzhou.server.entity.CitySales;
+import com.jiuzhou.server.entity.CitySalesModel;
+import com.jiuzhou.server.entity.ProvinceSalesModel;
 import com.jiuzhou.server.mapper.CityMapper;
 import com.jiuzhou.server.mapper.CitySalesMapper;
 import com.jiuzhou.server.mapper.ProvinceMapper;
@@ -50,23 +54,22 @@ public class CitySalesServiceImpl extends ServiceImpl<CitySalesMapper, CitySales
     }
 
     @Override
-    public List<HashMap<String, Object>> queryCitySalesByProvince(String pname){
-        List<HashMap<String, Object>> result = new ArrayList<>();
-        // 根据省份名获取省份id
-        Integer pId = provinceMapper.queryIdByProvinceName(pname);
-        Integer count = cityMapper.countByProvinceId(pId);
-        for(int i = 1; i <= count; i++){
-            HashMap<String, Object> temp = new HashMap<>();
-            temp.put("name", cityMapper.queryNameById(pId, i));
-            temp.put("value", citySalesMapper.querySalesByCity(i, pId));
-            result.add(temp);
+    public List<JSONObject> queryAllCitySalesByProvince(String pname){
+        List<JSONObject> result = new ArrayList<>();
+        List<CitySalesModel> S = citySalesMapper.queryAllCitySalesByProvince(pname);
+        for (CitySalesModel s : S) {
+            String jsonStr = JSON.toJSONString(s);   //将java对象转换为json字符串
+            JSONObject map = JSON.parseObject(jsonStr);  //将json字符串转换为json对象
+            result.add(map);
         }
         // 台湾省由于前端地图原因，增加一个额外数据
         HashMap<String, Object> temp = new HashMap<>();
         Integer twId = provinceMapper.queryIdByProvinceName("台湾");
         temp.put("name", "台湾省");
         temp.put("value", provinceSalesMapper.queryProvinceSales(twId));
-        result.add(temp);
+        String jsonStr = JSON.toJSONString(temp);
+        JSONObject map = JSON.parseObject(jsonStr);
+        result.add(map);
 
         return result;
     }

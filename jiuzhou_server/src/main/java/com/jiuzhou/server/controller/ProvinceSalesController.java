@@ -1,5 +1,6 @@
 package com.jiuzhou.server.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jiuzhou.server.service.ProvinceSalesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,11 +46,11 @@ public class ProvinceSalesController {
     }
 
     /** 查询所有省份销量的方法
-     * @return provinceSales HashMap<String, Integer> String为省份名，Integer省份销售额
+     * @return provinceSales
      */
     @GetMapping("/queryAllProvinceSales")
     public HashMap<String, Object> queryAllProvinceSales(){
-        List<HashMap<String, Object>> provinceSales = service.queryAllProvinceSales();
+        List<JSONObject> provinceSales = service.queryAllProvinceSales();
         if(provinceSales != null){
             return new HashMap<String, Object>(){{
                 put("msg","success!");

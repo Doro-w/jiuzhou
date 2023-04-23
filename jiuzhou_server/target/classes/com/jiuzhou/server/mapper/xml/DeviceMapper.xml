@@ -2,4 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jiuzhou.server.mapper.DeviceMapper">
 
+    <select id="queryAllDevice" resultType="com.jiuzhou.server.entity.DeviceModel">
+        select device.name as name, device_type.name as type, device.area as area, device.state as state, alarm.name as alarm
+        from device join device_type on device.type_id = device_type.id
+                    join alarm on device.alarm_id = alarm.id
+    </select>
+
+    <select id="queryDevice" resultType="com.jiuzhou.server.entity.DeviceModel">
+        select device.name as name, device_type.name as type, device.area as area, device.state as state, alarm.name as alarm
+            from device join device_type on device.type_id = device_type.id
+            join alarm on device.alarm_id = alarm.id
+            where 1= 1
+            <if test="type != null and type != ''">
+                and device_type.name = #{type}
+            </if>
+            <if test="area != null and area != ''">
+                and area = #{area}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="alarm != null and alarm != ''">
+                and alarm.name = #{alarm}
+            </if>
+    </select>
+
 </mapper>

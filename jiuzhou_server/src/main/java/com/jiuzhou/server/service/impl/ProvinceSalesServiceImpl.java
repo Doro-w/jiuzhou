@@ -1,6 +1,9 @@
 package com.jiuzhou.server.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.jiuzhou.server.entity.ProvinceSales;
+import com.jiuzhou.server.entity.ProvinceSalesModel;
 import com.jiuzhou.server.mapper.ProvinceMapper;
 import com.jiuzhou.server.mapper.ProvinceSalesMapper;
 import com.jiuzhou.server.service.ProvinceSalesService;
@@ -36,14 +39,13 @@ public class ProvinceSalesServiceImpl extends ServiceImpl<ProvinceSalesMapper, P
     }
 
     @Override
-    public  List<HashMap<String, Object>> queryAllProvinceSales(){
-        List<HashMap<String, Object>> result = new ArrayList<>();
-        int count = provinceMapper.countProvince();
-        for(int i = 1; i <= count; i++){
-            HashMap<String, Object> temp = new HashMap<>();
-            temp.put("name", provinceMapper.queryNameByProvinceId(i));
-            temp.put("value", provinceSalesMapper.queryProvinceSales(i));
-            result.add(temp);
+    public  List<JSONObject> queryAllProvinceSales(){
+        List<JSONObject> result = new ArrayList<>();
+        List<ProvinceSalesModel> S = provinceSalesMapper.queryAllProvinceSales();
+        for (ProvinceSalesModel s : S) {
+            String jsonStr = JSON.toJSONString(s);   //将java对象转换为json字符串
+            JSONObject map = JSON.parseObject(jsonStr);  //将json字符串转换为json对象
+            result.add(map);
         }
         return result;
     }

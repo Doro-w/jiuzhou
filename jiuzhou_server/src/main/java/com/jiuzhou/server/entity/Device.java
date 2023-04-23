@@ -25,13 +25,13 @@ public class Device implements Serializable {
 
   private String name;
 
-  private Integer type;
+  private Integer typeId;
 
   private String area;
 
   private Integer state;
 
-  private String alarm;
+  private Integer alarmId;
 
 
 }

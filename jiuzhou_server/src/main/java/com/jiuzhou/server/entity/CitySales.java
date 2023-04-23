@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.sf.jsqlparser.statement.create.table.Index;
 
 /**
  * <p>

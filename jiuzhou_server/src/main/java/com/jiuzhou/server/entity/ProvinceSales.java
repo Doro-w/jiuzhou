@@ -23,7 +23,7 @@ public class ProvinceSales implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-  private String province;
+  private Integer province_id;
 
   private Integer amount;
 
